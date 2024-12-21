@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Send } from 'lucide-react';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Send } from "lucide-react";
 
 interface TextInputProps {
   onSave: (text: string) => Promise<void>;
 }
 
 export const TextInput: React.FC<TextInputProps> = ({ onSave }) => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -18,9 +18,9 @@ export const TextInput: React.FC<TextInputProps> = ({ onSave }) => {
     try {
       setIsSaving(true);
       await onSave(trimmedText);
-      setText('');
+      setText("");
     } catch (error) {
-      console.error('Failed to save text:', error);
+      console.error("Failed to save text:", error);
     } finally {
       setIsSaving(false);
     }
@@ -33,7 +33,7 @@ export const TextInput: React.FC<TextInputProps> = ({ onSave }) => {
       className="w-full max-w-lg"
       onSubmit={handleSubmit}
     >
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex sm:flex-row items-center gap-2">
         <input
           type="text"
           value={text}
@@ -50,7 +50,7 @@ export const TextInput: React.FC<TextInputProps> = ({ onSave }) => {
           disabled={isSaving || !text.trim()}
         >
           <Send size={20} />
-          {isSaving ? 'Saving...' : 'Save'}
+          {isSaving ? "Saving..." : "Save"}
         </motion.button>
       </div>
     </motion.form>
